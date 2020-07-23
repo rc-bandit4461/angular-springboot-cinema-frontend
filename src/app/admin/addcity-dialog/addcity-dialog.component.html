@@ -1,0 +1,33 @@
+<div class="row w-100">
+  <div class="col-12 w-100">
+    <h1 mat-dialog-title class="text-center">Ajout de ville</h1>
+<div mat-dialog-content class="w-100" [formGroup]="addcityFormGroup">
+  <!--  <p>What's your favorite animal?</p>-->
+  <mat-form-field class="w-100">
+    <mat-label>City Name</mat-label>
+    <input type="text" matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>City altitude</mat-label>
+    <input type="number"  matInput formControlName="altitude">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>City latitude</mat-label>
+    <input type="number"  matInput formControlName="latitude">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>City longitude</mat-label>
+    <input type="number"  matInput formControlName="longitude">
+  </mat-form-field>
+
+
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>ADD</button>
+</div>
+
+  </div>
+</div>

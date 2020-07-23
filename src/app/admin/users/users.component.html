@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body bg-dark text-white">
+
+          <div class="mat-elevation-z8">
+
+            <table mat-table #usersTable [dataSource]="users" class="w-100 mat-table">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="name" (click)="onClickMatHeaderCell(1)">
+                <mat-header-cell *matHeaderCellDef (click)="onClickMatHeaderCell(2)"> name</mat-header-cell>
+                <mat-cell *matCellDef="let user" (click)="onClickMatHeaderCell(3)"> {{user.firstName | titlecase}}
+                  <span class="font-weight-bold">{{user.lastName | uppercase}}</span>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> email</mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+              </ng-container>
+           <ng-container matColumnDef="enabled">
+                <mat-header-cell *matHeaderCellDef> enabled</mat-header-cell>
+                <mat-cell *matCellDef="let user"> <mat-slide-toggle
+                  (change)="onToggleDisable(user,$event)" [disabled]="isOwner(user) || isAdmin(user) &&
+                  !auth.isOwner()"
+                  [checked]="user.enabled"></mat-slide-toggle>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> action</mat-header-cell>
+                <mat-cell *matCellDef="let user;">
+                  <div class="btn-group">
+
+
+                    <button mat-raised-button color="accent" (click)="openDialog(user,false)">Details</button>
+                    <button mat-raised-button color="primary" (click)="openDialog(user,true)">Edit</button>
+                  </div>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+            <mat-paginator #paginator [length]="totalElements"
+                           (page)="onPage($event)"
+                           [pageSize]="currentPageSize"
+                           [pageSizeOptions]="pageSizes">
+            </mat-paginator>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

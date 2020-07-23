@@ -1,0 +1,38 @@
+<div class="row w-100">
+  <div class="col-12 w-100">
+    <form #modfyForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <h1 mat-dialog-title class="text-center">Ville {{cityData.name}}</h1>
+
+<div mat-dialog-content class="w-100">
+  <!--  <p>What's your favorite animal?</p>-->
+  <mat-form-field class="w-100">
+    <mat-label>City Name</mat-label>
+    <input [disabled]="!data.toggleButtons" matInput name="name" [(ngModel)]="cityData.name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>City altitude</mat-label>
+    <input [disabled]="!data.toggleButtons" matInput name="altitude" [(ngModel)]="cityData.altitude">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>City Latitude</mat-label>
+    <input [disabled]="!data.toggleButtons" matInput name="latitude" [(ngModel)]="cityData.latitude">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>City Longitude</mat-label>
+    <input [disabled]="!data.toggleButtons" matInput name="longitude" [(ngModel)]="cityData.longitude">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions *ngIf="data.toggleButtons">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button type="submit" cdkFocusInitial>Ok</button>
+<a mat-raised-button (click)="onSalles()">Cinemas</a>
+</div>
+
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="row w-100">
+  <div class="col-12 w-100" *ngIf="isLoaded">
+    <h1 mat-dialog-title class="text-center">User {{user.firstName | titlecase}} {{user.lastName | uppercase}}</h1>
+    <div mat-dialog-content class="w-100" [formGroup]="rolesFormDialog">
+      <!--  <p>What's your favorite animal?</p>-->
+      <mat-form-field class="w-100">
+        <mat-label>Firstname</mat-label>
+        <input type="text" matInput formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Last name</mat-label>
+        <input type="text" matInput formControlName="lastName">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input type="text" matInput formControlName="password">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="text" matInput formControlName="email">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Roles</mat-label>
+        <mat-select formControlName="roles" multiple>
+          <mat-option *ngFor="let role of roles" [value]="role.id" [disabled]="isOwnerRole(role)">
+            {{role.role | uppercase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>ADD</button>
+    </div>
+
+  </div>
+</div>

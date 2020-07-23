@@ -1,0 +1,48 @@
+<div class="row w-100" *ngIf="isLoaded">
+  <div class="col-12 w-100">
+    <h1 mat-dialog-title class="text-center">Film: {{filmData.titre}}</h1>
+    <div [formGroup]="filmFormGroup" mat-dialog-content class="w-100">
+      <!--  <p>What's your favorite animal?</p>-->
+      <mat-form-field class="w-100">
+        <mat-label>titre</mat-label>
+        <input matInput formControlName="titre">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>realisateur</mat-label>
+        <input matInput formControlName="realisateur">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>duree</mat-label>
+        <input type="number" matInput formControlName="duree">
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>dateSortie</mat-label>
+        <input type="date" matInput formControlName="dateSortie">
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>duree</mat-label>
+        <input matInput formControlName="duree">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Categorie</mat-label>
+        <mat-select formControlName="categorie">
+          <mat-option *ngFor="let categorie of categories" [value]="categorie.id">
+            {{categorie.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button (click)="onReSet()">Reset</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="mat-elevation-z8">
+
+        <table mat-table #sallesTable [dataSource]="salles" class="w-100 mat-table">
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="nombrePlaces">
+            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombrePlaces}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> action</mat-header-cell>
+            <mat-cell *matCellDef="let element;">
+              <div class="btn-group">
+                <button mat-raised-button color="warn" (click)="onDelete(element)">delete</button>
+                <button mat-raised-button color="accent" (click)="openDialog(element,false)">Details</button>
+                <button mat-raised-button color="primary" (click)="openDialog(element,true)">Edit</button>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+        <mat-paginator #paginator [length]="totalElements"
+                       (page)="onPage($event)"
+                       [pageSize]="currentPageSize"
+                       [pageSizeOptions]="pageSizes">
+        </mat-paginator>
+
+      </div>
+    </div>
+  </div>
+</div>

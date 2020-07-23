@@ -1,0 +1,31 @@
+<div class="row w-100" *ngIf="isLoaded">
+  <div class="col-12 w-100">
+    <h1 mat-dialog-title class="text-center">Salle: {{salleData.name}}</h1>
+    <div [formGroup]="salleFormGroup" mat-dialog-content class="w-100">
+      <!--  <p>What's your favorite animal?</p>-->
+      <mat-form-field class="w-100">
+        <mat-label>Cinema Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nombre de places</mat-label>
+        <input matInput formControlName="nombrePlaces">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ville</mat-label>
+        <mat-select formControlName="cinema">
+          <mat-option *ngFor="let cinema of cinemas" [value]="cinema.id">
+            {{cinema.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions *ngIf="data.toggleButtons">
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button (click)="onReSet()">Reset</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+      <button mat-button (click)="onGetPlaces()" >Places</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h3 *ngIf="currentCinema">Liste des projections Cinema {{currentCinema.name}}</h3>
+            <button mat-raised-button color="primary" (click)="onAddProjection()">New projection</button>
+                <button mat-raised-button color="primary" (click)="test()">test</button>
+        </div>
+        <div class="card-body">
+                <div class="mat-elevation-z8">
+
+        <table mat-table #projectionsTable [dataSource]="projections" class="w-100 mat-table">
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dateProjection" (click)="onClickMatHeaderCell(1)">
+            <mat-header-cell *matHeaderCellDef (click)="onClickMatHeaderCell(2)"> name</mat-header-cell>
+            <mat-cell *matCellDef="let element" (click)="onClickMatHeaderCell(3)"> {{element.dateProjection}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="prix">
+            <mat-header-cell *matHeaderCellDef> prix</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.prix}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="film">
+            <mat-header-cell *matHeaderCellDef> film</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.film.titre}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="salle">
+            <mat-header-cell *matHeaderCellDef> salle</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.salle.name}} </mat-cell>
+          </ng-container>
+              <ng-container matColumnDef="seance">
+            <mat-header-cell *matHeaderCellDef> seance</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seance.heureDebut}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> action</mat-header-cell>
+            <mat-cell *matCellDef="let element;">
+              <div class="btn-group">
+                <button mat-raised-button color="warn" (click)="onDelete(element)">delete</button>
+                <button mat-raised-button color="accent" (click)="openDialog(element,false)">Details</button>
+                <button mat-raised-button color="primary" (click)="openDialog(element,true)">Edit</button>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+        <mat-paginator #paginator  [length]="totalElements"
+                       (page)="onPage($event)"
+                       [pageSize]="currentPageSize"
+                       [pageSizeOptions]="pageSizes">
+        </mat-paginator>
+
+      </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-12">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          List des villes
+        </div>
+        <div class="card-body p-0">
+          <span *ngIf="!villes">
+            La liste des villes est vide.
+          </span>
+          <ul *ngIf="villes" class="list-group">
+            <li [ngClass]="{'active':ville == currentVille}" *ngFor="let ville of villes"
+                class="list-group-item cursor-pointer"
+                (click)="onGetCinemas(ville)">
+              {{ville.name}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 col-12">
+      <div class="card">
+        <div class="card-header text-white bg-info">
+          Liste des Cinemas
+        </div>
+        <div class="card-body">
+          <div class="row pb-3">
+            <div class="col-4">
+              <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="projectionDate"
+                       (ngModelChange)="onChangeDateProjection($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-8 w-100">
+              <div class="row">
+                <div class="col-12">
+                  <div *ngIf="cinemas" class="btn-group" role="group" aria-label="cinema buttons">
+                    <button [ngClass]="{'active':cinema ==currentCinema}" (click)="onGetSalles(cinema)" *ngFor="let
+              cinema of
+              cinemas"
+                            class="btn btn-info"
+                            type="button">
+                      {{cinema.id + ' ' + cinema.name | uppercase}}
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-12" *ngIf="salles">
+              <div class="card">
+                <div class="card-header bg-primary text-white">Liste des salles</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 col-12" *ngFor="let salle of salles">
+                      <div class="card">
+                        <div class="card-header bg-secondary bg-grey text-white">
+                          <span class="text-center"><span>{{salle.name}}</span></span>
+                        </div>
+                        <div class="card-body">
+                          <p *ngIf="!salle.projections || !salle.currentProjection ||  salle.projections.length == 0">
+                            Aucune projection n'est disponible à cette date.
+                          </p>
+                          <div class="row" *ngIf="salle.currentProjection">
+                            <div class="col-6"><img class="w-100"
+                                                    [src]="common.url + '/imageFilm/' + salle.currentProjection.film.id"
+                                                    [alt]="salle.projections[0].film.titre"></div>
+                            <div class="col-6">
+                              <div class="card p-0">
+                                <div class="card-header bg-secondary text-white">Seances</div>
+                                <div class="card-body p-0 bg-grey">
+                                  <ul *ngIf="salle.projections?.length > 0" class="list-group">
+                                    <li [ngClass]="{'active':salle.currentProjection == projection}" *ngFor="let
+                                  projection of
+                                  salle.projections" (click)="onSelectSeance(salle,projection)"
+                                        class="list-group-item cursor-pointer">
+                                      {{projection.seance.heureDebut}} | {{projection.prix | number:'.2'}} DH
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 mt-2 " *ngIf="salle.currentProjection.tickets">
+                              <div class="btn-group w-100">
+                                <button class="btn btn-light btn-sm border-secondary"
+                                        (click)="fetchPreviousTickets(salle.currentProjection)">Prev
+                                </button>
+                                <button class="btn btn-sm" [disabled]="ticket.reserve"
+                                        [ngClass]="{'btn-success':!ticket.reserve && !ticket.selected,'btn-dark':ticket.reserve,'btn-warning':!ticket.reserve && ticket.selected}"
+                                        *ngFor="let
+                              ticket of
+                              salle.currentProjection.tickets"
+                                        (click)="onClickTicket(salle.currentProjection,ticket)">
+                                  <small>{{ticket.place.id}}</small>
+                                </button>
+                                <button class="btn btn-light btn-sm border-secondary"
+                                        (click)="fetchNextTickts(salle.currentProjection)">Next
+                                </button>
+
+                              </div>
+                            </div>
+                            <div class="col-12 mt-2"
+                                 *ngIf="salle.currentProjection.ticketSelected && auth.isLoggedIn()">
+                              <form #payForm="ngForm" (ngSubmit)="onSubmitPay(payForm.value,salle.currentProjection)">
+                                <!--                              <div class="form-group">-->
+                                <!--                                <label>Nom de client</label>-->
+                                <!--                                <input type="text" name="nomClient" class="form-control" ngModel>-->
+                                <!--                              </div>-->
+                                <!--                              <div class="form-group">-->
+                                <!--                                <label>Code de paiement</label>-->
+                                <!--                                <input type="number" name="codePayment" class="form-control" ngModel>-->
+                                <!--                              </div>-->
+                                <button class="btn btn-primary" [disabled]="!auth.isLoggedIn()" type="submit">Payer
+                                </button>
+                              </form>
+                            </div>
+                            <div *ngIf="!auth.isLoggedIn() && salle.currentProjection.ticketSelected">
+                              <span class="text-danger text-center">Il faut se connecter pour payer!</span>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

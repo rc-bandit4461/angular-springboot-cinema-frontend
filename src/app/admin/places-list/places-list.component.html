@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="mat-elevation-z8">
+
+        <table mat-table #placesTable [dataSource]="places" class="w-100 mat-table">
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="altitude">
+            <mat-header-cell *matHeaderCellDef> altitude</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.altitude}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="latitude">
+            <mat-header-cell *matHeaderCellDef> latitude</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.latitude}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="longitude">
+            <mat-header-cell *matHeaderCellDef> longitude</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.longitude}} </mat-cell>
+          </ng-container>
+            <ng-container matColumnDef="numero">
+            <mat-header-cell *matHeaderCellDef> numero</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.numero}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> action</mat-header-cell>
+            <mat-cell *matCellDef="let element;">
+              <div class="btn-group">
+                <button mat-raised-button color="warn" (click)="onDelete(element)">delete</button>
+                <button mat-raised-button color="accent" (click)="openDialog(element,false)">Details</button>
+                <button mat-raised-button color="primary" (click)="openDialog(element,true)">Edit</button>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+        <mat-paginator #paginator [length]="totalElements"
+                       (page)="onPage($event)"
+                       [pageSize]="currentPageSize"
+                       [pageSizeOptions]="pageSizes">
+        </mat-paginator>
+
+      </div>
+    </div>
+  </div>
+</div>

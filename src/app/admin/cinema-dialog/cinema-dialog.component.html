@@ -1,0 +1,42 @@
+<div class="row w-100" *ngIf="isLoaded">
+  <div class="col-12 w-100">
+    <h1 mat-dialog-title class="text-center">Cinema {{cinemaData.name}}</h1>
+<div [formGroup]="cinemaFormGroup" mat-dialog-content class="w-100">
+  <!--  <p>What's your favorite animal?</p>-->
+  <mat-form-field class="w-100">
+    <mat-label>Cinema Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Cinema altitude</mat-label>
+    <input matInput formControlName="altitude">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Cinema Latitude</mat-label>
+    <input matInput formControlName="latitude">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Cinema Longitude</mat-label>
+    <input matInput formControlName="longitude">
+  </mat-form-field>
+   <mat-form-field appearance="fill">
+    <mat-label>Ville</mat-label>
+    <mat-select  formControlName="city">
+      <mat-option *ngFor="let city of cities" [value]="city.id" >
+        {{city.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions *ngIf="data.toggleButtons">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSet()">Set</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+<a mat-raised-button (click)="onSalles()">Salles</a>
+</div>
+
+  </div>
+</div>

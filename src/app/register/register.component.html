@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="col-md-6 offset-md-3 col-12">
+    <div class="card">
+      <div class="card-header p-4" style="background-color: rgba(63, 127, 191,0.3)">
+        <h1 class="text-center text-primary" style="font-size: 50px">{{'Registration' | titlecase}}</h1>
+      </div>
+      <div class="card-body">
+        <form #profileForm="ngForm" [formGroup]="profileFormGroup" (ngSubmit)="onSubmit(profileForm.value)">
+          <div class="form-group">
+            <label>Firstname</label>
+            <input type="text" formControlName="firstName" class="form-control">
+            <ng-container
+              *ngIf="profileFormGroup.get('firstName').touched && profileFormGroup.get('firstName').dirty &&
+              profileFormGroup.get('firstName').invalid">
+              <span class="text-danger" *ngIf="profileFormGroup.get('firstName').errors.minlength">min length 3</span>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control">
+            <ng-container
+              *ngIf="profileFormGroup.get('lastName').touched && profileFormGroup.get('lastName').invalid">
+              <span class="text-danger" *ngIf="profileFormGroup.get('lastName').errors.minlength">min length 3</span>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label>email</label>
+            <input type="text" formControlName="email" class="form-control">
+            <ng-container *ngIf="profileFormGroup.get('email').dirty && profileFormGroup.get('email').invalid">
+              <span class="text-danger" *ngIf="profileFormGroup.get('email').errors.email">Email error</span>
+            </ng-container>
+          </div>
+          <!--      <div class="form-group">-->
+          <!--        <label>Username</label>-->
+          <!--        <input type="text" formControlName="username" class="form-control">-->
+          <!--      </div>-->
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" formControlName="password" class="form-control">
+            <ng-container *ngIf="profileFormGroup.get('password').touched &&
+        profileFormGroup.get('passwordConfirmation').touched">
+                <span class="text-danger" *ngIf="profileFormGroup.get('password').value !=
+                profileFormGroup.get('passwordConfirmation').value">Different password entered</span>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label>Confirm password</label>
+            <input type="password" formControlName="passwordConfirmation" class="form-control">
+            <ng-container *ngIf="profileFormGroup.get('password').touched &&
+        profileFormGroup.get('passwordConfirmation').touched">
+                <span class="text-danger" *ngIf="profileFormGroup.get('password').value !=
+                profileFormGroup.get('passwordConfirmation').value">Different password entered</span>
+            </ng-container>
+
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Liste des films</h3>
+
+          <button mat-raised-button class="float-right" color="primary" (click)="onAddFilm()">Add</button>
+        </div>
+        <div class="card-body">
+          <div class="mat-elevation-z8">
+
+            <table mat-table style="width: 100%;overflow: scroll;" #filmsTable [dataSource]="films">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="titre">
+                <mat-header-cell *matHeaderCellDef> titre</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.titre}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="dateSortie">
+                <mat-header-cell *matHeaderCellDef> dateSortie</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dateSortie}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="realisateur">
+                <mat-header-cell *matHeaderCellDef> realisateur</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.realisateur}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="duree">
+                <mat-header-cell *matHeaderCellDef> duree</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.duree}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef> description</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="photo">
+                <mat-header-cell *matHeaderCellDef> photo</mat-header-cell>
+                <mat-cell *matCellDef="let element"><img style="max-height: 100px;"
+                                                         [src]="common.url + '/imageFilm/' + element.id"
+                                                         [alt]="element.titre"></mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="categorie">
+                <mat-header-cell *matHeaderCellDef> categorie</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.categorie.name}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> action</mat-header-cell>
+                <mat-cell *matCellDef="let element;">
+                  <div class="btn-group">
+                    <button mat-button color="warn"
+                            (click)="onDelete(element)"><mat-icon>delete</mat-icon></button>
+                    <button mat-button color="accent" (click)="openDialog(element,false)">Details</button>
+                    <button mat-button color="primary" (click)="openDialog(element,true)">Edit</button>
+                  </div>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+            <mat-paginator #paginator [length]="totalElements"
+                           (page)="onPage($event)"
+                           [pageSize]="currentPageSize"
+                           [pageSizeOptions]="pageSizes">
+            </mat-paginator>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>

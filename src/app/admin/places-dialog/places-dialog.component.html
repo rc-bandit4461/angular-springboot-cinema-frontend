@@ -1,0 +1,39 @@
+<div class="row w-100" *ngIf="isLoaded">
+  <div class="col-12 w-100">
+    <h1 mat-dialog-title class="text-center">Place: {{placeData.numero}}</h1>
+    <div [formGroup]="placeFormGroup" mat-dialog-content class="w-100">
+      <!--  <p>What's your favorite animal?</p>-->
+      <mat-form-field class="w-100">
+        <mat-label>Place numero</mat-label>
+        <input matInput formControlName="numero">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Place altitude</mat-label>
+        <input matInput formControlName="altitude">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Place latitude</mat-label>
+        <input matInput formControlName="latitude">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Place longitude</mat-label>
+        <input matInput formControlName="longitude">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ville</mat-label>
+        <mat-select formControlName="salle">
+          <mat-option *ngFor="let salle of salles" [value]="salle.id">
+            {{salle.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions *ngIf="data.toggleButtons">
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button (click)="onReSet()">Reset</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+      <button mat-button (click)="onGetPlaces()" >Places</button>
+    </div>
+
+  </div>
+</div>
