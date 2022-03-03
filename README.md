@@ -1,7 +1,7 @@
 # CinemaFrontEnd
 ## About
 
-This is a cinema management project that I made using Angular and Springboot. It covers managements of cinemas, cities, tickets, movies, and rooms.It also has stateless Authentication (user authetication). This repository is for the frontend part using Angular.
+This is a cinema management project that I made using Angular and Springboot. It covers managements of cinemas, cities, tickets, movies, and rooms.It also has stateless Authentication (user authetication). This repository is for the frontend part using Angular. the backend is developed using Spring Framework and is available [here](https://github.com/rc-bandit4461/angular-spring-cinema-backend).
 
 ## Pictures
 
